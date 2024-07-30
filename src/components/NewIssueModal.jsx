@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dialog";
 
 const NewIssueModal = ({ onAddNewIssue }) => {
+  const [open, setOpen] = useState(false);
   const [newIssue, setNewIssue] = useState({
     title: "",
     description: "",
@@ -38,10 +39,11 @@ const NewIssueModal = ({ onAddNewIssue }) => {
       status: "Open",
       priority: "Medium",
     });
+    setOpen(false);
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>New Issue</Button>
       </DialogTrigger>

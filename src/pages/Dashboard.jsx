@@ -9,6 +9,7 @@ import IssueView from "../components/IssueView";
 import DocumentList from "../components/DocumentList";
 import MilestoneView from "../components/MilestoneView";
 import NewIssueModal from "../components/NewIssueModal";
+import { toast } from "sonner";
 
 const Dashboard = () => {
   const [activeView, setActiveView] = useState("projects");
@@ -27,6 +28,8 @@ const Dashboard = () => {
       id: issues.length + 1,
     };
     setIssues([...issues, issueWithId]);
+    toast.success("New issue created successfully");
+    setActiveView("issues");
   };
 
   const groupedIssues = useMemo(() => {
@@ -112,7 +115,8 @@ const Dashboard = () => {
             {activeView === "projects" && <ProjectList />}
             {activeView === "issues" && (
               <>
-                <div className="mb-4">
+                <div className="mb-4 flex justify-between items-center">
+                  <h2 className="text-2xl font-bold">Issues</h2>
                   <NewIssueModal onAddNewIssue={addNewIssue} />
                 </div>
                 <IssueList groupedIssues={groupedIssues} onSelectIssue={handleSelectIssue} />
