@@ -18,10 +18,10 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <header className="container mx-auto py-6 px-4">
-        <div className="flex justify-between items-center">
+        <div className="flex flex-wrap justify-between items-center">
           <h1 className="text-2xl font-bold">LinearClone</h1>
-          <nav className="hidden md:block">
-            <ul className="flex space-x-6">
+          <nav className="hidden lg:block flex-grow">
+            <ul className="flex justify-center space-x-4 lg:space-x-6">
               <li><a href="#features" className="text-white hover:text-gray-300">Features</a></li>
               <li><a href="#method" className="text-white hover:text-gray-300">Method</a></li>
               <li><a href="#customers" className="text-white hover:text-gray-300">Customers</a></li>
@@ -30,19 +30,19 @@ const Index = () => {
               <li><a href="#company" className="text-white hover:text-gray-300">Company</a></li>
             </ul>
           </nav>
-          <div className="hidden md:flex space-x-4">
+          <div className="hidden lg:flex space-x-4 items-center">
             <a href="#contact" className="text-white hover:text-gray-300">Contact</a>
             <a href="#docs" className="text-white hover:text-gray-300">Docs</a>
             <Button variant="outline" className="text-white border-white hover:bg-white hover:text-black" onClick={handleGetStarted}>
               Open app
             </Button>
           </div>
-          <button className="md:hidden" onClick={toggleMenu}>
+          <button className="lg:hidden" onClick={toggleMenu}>
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
         {isMenuOpen && (
-          <nav className="mt-4 md:hidden">
+          <nav className="mt-4 lg:hidden w-full">
             <ul className="space-y-2">
               <li><a href="#features" className="block text-white hover:text-gray-300">Features</a></li>
               <li><a href="#method" className="block text-white hover:text-gray-300">Method</a></li>
