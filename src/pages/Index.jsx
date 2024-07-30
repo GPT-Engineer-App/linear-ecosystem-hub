@@ -33,7 +33,7 @@ const Index = () => {
           <div className="hidden lg:flex space-x-4 items-center">
             <a href="#contact" className="text-white hover:text-gray-300">Contact</a>
             <a href="#docs" className="text-white hover:text-gray-300">Docs</a>
-            <Button variant="outline" className="text-white border-white hover:bg-white hover:text-black" onClick={handleGetStarted}>
+            <Button variant="outline" className="text-black bg-white border-white hover:bg-gray-200" onClick={handleGetStarted}>
               Open app
             </Button>
           </div>
@@ -53,7 +53,7 @@ const Index = () => {
               <li><a href="#contact" className="block text-white hover:text-gray-300">Contact</a></li>
               <li><a href="#docs" className="block text-white hover:text-gray-300">Docs</a></li>
               <li>
-                <Button variant="outline" className="w-full text-white border-white hover:bg-white hover:text-black mt-2" onClick={handleGetStarted}>
+                <Button variant="outline" className="w-full text-black bg-white border-white hover:bg-gray-200 mt-2" onClick={handleGetStarted}>
                   Open app
                 </Button>
               </li>
