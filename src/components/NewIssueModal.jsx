@@ -13,13 +13,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-const NewIssueModal = ({ onAddNewIssue }) => {
+const NewIssueModal = ({ onAddNewIssue, projects }) => {
   const [open, setOpen] = useState(false);
   const [newIssue, setNewIssue] = useState({
     title: "",
     description: "",
     status: "Open",
     priority: "Medium",
+    projectId: projects[0].id,
   });
 
   const handleInputChange = (e) => {
@@ -117,6 +118,25 @@ const NewIssueModal = ({ onAddNewIssue }) => {
                   <SelectItem value="Low">Low</SelectItem>
                   <SelectItem value="Medium">Medium</SelectItem>
                   <SelectItem value="High">High</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <label htmlFor="project" className="text-right">
+                Project
+              </label>
+              <Select
+                name="projectId"
+                value={newIssue.projectId.toString()}
+                onValueChange={(value) => handleSelectChange("projectId", parseInt(value))}
+              >
+                <SelectTrigger className="col-span-3">
+                  <SelectValue placeholder="Select project" />
+                </SelectTrigger>
+                <SelectContent>
+                  {projects.map((project) => (
+                    <SelectItem key={project.id} value={project.id.toString()}>{project.name}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>

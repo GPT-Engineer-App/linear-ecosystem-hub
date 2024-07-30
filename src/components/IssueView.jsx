@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 
-const IssueView = ({ issueId, onUpdate }) => {
+const IssueView = ({ issueId, onUpdate, projects }) => {
   const [issue, setIssue] = useState({
     id: issueId,
     title: "Fix login bug",
@@ -13,6 +13,7 @@ const IssueView = ({ issueId, onUpdate }) => {
     status: "Open",
     priority: "High",
     assignee: "John Doe",
+    projectId: projects[0].id,
   });
 
   const handleInputChange = (e) => {
@@ -94,6 +95,19 @@ const IssueView = ({ issueId, onUpdate }) => {
             className="w-full"
             required
           />
+        </div>
+        <div>
+          <label htmlFor="project" className="block text-sm font-medium mb-1">Project</label>
+          <Select name="projectId" value={issue.projectId.toString()} onValueChange={(value) => handleSelectChange("projectId", parseInt(value))}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select project" />
+            </SelectTrigger>
+            <SelectContent>
+              {projects.map((project) => (
+                <SelectItem key={project.id} value={project.id.toString()}>{project.name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         <Button type="submit" className="w-full">Save Changes</Button>
       </div>

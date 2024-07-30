@@ -16,18 +16,25 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [activeView, setActiveView] = useState("projects");
   const [selectedIssueId, setSelectedIssueId] = useState(null);
+  const [projects, setProjects] = useState([
+    { id: 1, name: "Website Redesign", status: "In Progress" },
+    { id: 2, name: "Mobile App Development", status: "Planning" },
+    { id: 3, name: "Data Migration", status: "Completed" },
+  ]);
+
   const [issues, setIssues] = useState([
-    { id: 1, title: "Fix login bug", status: "Open", priority: "High" },
-    { id: 2, title: "Implement search feature", status: "In Progress", priority: "Medium" },
-    { id: 3, title: "Update documentation", status: "Closed", priority: "Low" },
-    { id: 4, title: "Refactor API endpoints", status: "Open", priority: "Medium" },
-    { id: 5, title: "Optimize database queries", status: "In Progress", priority: "High" },
+    { id: 1, title: "Fix login bug", status: "Open", priority: "High", projectId: 1 },
+    { id: 2, title: "Implement search feature", status: "In Progress", priority: "Medium", projectId: 1 },
+    { id: 3, title: "Update documentation", status: "Closed", priority: "Low", projectId: 2 },
+    { id: 4, title: "Refactor API endpoints", status: "Open", priority: "Medium", projectId: 2 },
+    { id: 5, title: "Optimize database queries", status: "In Progress", priority: "High", projectId: 3 },
   ].filter(issue => issue && issue.title !== undefined));
 
   const addNewIssue = (newIssue) => {
     const issueWithId = {
       ...newIssue,
       id: issues.length + 1,
+      projectId: newIssue.projectId || projects[0].id, // Default to first project if not specified
     };
     setIssues([...issues, issueWithId]);
     toast.success("New issue created successfully");
@@ -119,17 +126,18 @@ const Dashboard = () => {
             <TeamList />
           </div>
           <div className="col-span-3">
-            {activeView === "projects" && <ProjectList />}
+            {activeView === "projects" && <ProjectList projects={projects} setProjects={setProjects} />}
             {activeView === "issues" && (
               <>
                 <h2 className="text-2xl font-bold mb-4">Issues</h2>
                 <div className="flex justify-between items-center mb-4">
-                  <NewIssueModal onAddNewIssue={addNewIssue} />
+                  <NewIssueModal onAddNewIssue={addNewIssue} projects={projects} />
                 </div>
                 <IssueList
                   groupedIssues={groupedIssues}
                   onSelectIssue={handleSelectIssue}
                   onAddNewIssue={addNewIssue}
+                  projects={projects}
                 />
               </>
             )}
