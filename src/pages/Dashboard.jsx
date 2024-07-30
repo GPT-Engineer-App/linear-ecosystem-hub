@@ -162,6 +162,8 @@ const Dashboard = () => {
                 projectId={selectedProjectId}
                 onUpdate={handleUpdateProject}
                 projects={projects}
+                issues={issues}
+                onSelectIssue={handleSelectIssue}
               />
             )}
             {activeView === "issues" && (

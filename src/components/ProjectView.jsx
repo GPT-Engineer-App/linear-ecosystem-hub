@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
+import IssueList from "./IssueList";
 
-const ProjectView = ({ projectId, onUpdate, projects }) => {
+const ProjectView = ({ projectId, onUpdate, projects, issues, onSelectIssue }) => {
   const [project, setProject] = useState(
     projects.find((p) => p.id === projectId) || {
       id: projectId,
@@ -14,6 +15,20 @@ const ProjectView = ({ projectId, onUpdate, projects }) => {
       status: "Planning",
     }
   );
+
+  const projectIssues = useMemo(() => {
+    return issues.filter(issue => issue.projectId === projectId);
+  }, [issues, projectId]);
+
+  const groupedIssues = useMemo(() => {
+    return projectIssues.reduce((acc, issue) => {
+      if (!acc[issue.status]) {
+        acc[issue.status] = [];
+      }
+      acc[issue.status].push(issue);
+      return acc;
+    }, {});
+  }, [projectIssues]);
 
   const handleInputChange = (e) => {
     setProject({ ...project, [e.target.name]: e.target.value });
@@ -30,9 +45,9 @@ const ProjectView = ({ projectId, onUpdate, projects }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-      <h2 className="text-2xl font-semibold mb-4">Project: {project.name}</h2>
-      <div className="space-y-4">
+    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow space-y-8">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <h2 className="text-2xl font-semibold mb-4">Project: {project.name}</h2>
         <div>
           <label htmlFor="name" className="block text-sm font-medium mb-1">Name</label>
           <Input
@@ -69,8 +84,17 @@ const ProjectView = ({ projectId, onUpdate, projects }) => {
           </Select>
         </div>
         <Button type="submit" className="w-full">Save Changes</Button>
+      </form>
+      
+      <div>
+        <h3 className="text-xl font-semibold mb-4">Project Issues</h3>
+        <IssueList
+          groupedIssues={groupedIssues}
+          onSelectIssue={onSelectIssue}
+          projects={projects}
+        />
       </div>
-    </form>
+    </div>
   );
 };
 
