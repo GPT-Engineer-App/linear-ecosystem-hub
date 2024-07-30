@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Plus, Check } from "lucide-react";
 import ProjectList from "./ProjectList";
 import ProjectView from "./ProjectView";
 import IssueList from "./IssueList";
@@ -28,7 +28,7 @@ const TeamList = ({
     { id: 2, name: "Design" },
     { id: 3, name: "Marketing" },
   ]);
-  const [selectedTeam, setSelectedTeam] = useState(null);
+  const [selectedTeam, setSelectedTeam] = useState(teams[0].id);
 
   const handleTeamSelect = (teamId) => {
     setSelectedTeam(teamId);
@@ -40,10 +40,26 @@ const TeamList = ({
         <h2 className="text-xl font-semibold mb-4">Teams</h2>
         <ul className="space-y-2">
           {teams.map((team) => (
-            <li key={team.id} className="flex items-center justify-between">
-              <span>{team.name}</span>
-              <Button variant="ghost" size="sm" onClick={() => handleTeamSelect(team.id)}>
-                View
+            <li
+              key={team.id}
+              className={`flex items-center justify-between p-2 rounded-md ${
+                selectedTeam === team.id
+                  ? "bg-blue-100 dark:bg-blue-900"
+                  : "hover:bg-gray-100 dark:hover:bg-gray-700"
+              }`}
+            >
+              <span className="flex items-center">
+                {selectedTeam === team.id && (
+                  <Check className="h-4 w-4 mr-2 text-blue-500" />
+                )}
+                {team.name}
+              </span>
+              <Button
+                variant={selectedTeam === team.id ? "default" : "ghost"}
+                size="sm"
+                onClick={() => handleTeamSelect(team.id)}
+              >
+                {selectedTeam === team.id ? "Active" : "View"}
               </Button>
             </li>
           ))}
