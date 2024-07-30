@@ -9,6 +9,15 @@ const ProjectList = () => {
     { id: 3, name: "Data Migration", status: "Completed" },
   ]);
 
+  const addNewProject = () => {
+    const newProject = {
+      id: projects.length + 1,
+      name: `New Project ${projects.length + 1}`,
+      status: "Planning",
+    };
+    setProjects([...projects, newProject]);
+  };
+
   return (
     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
       <h2 className="text-xl font-semibold mb-4">Projects</h2>
@@ -25,7 +34,7 @@ const ProjectList = () => {
           </li>
         ))}
       </ul>
-      <Button className="w-full mt-4">
+      <Button className="w-full mt-4" onClick={addNewProject}>
         <Plus className="h-4 w-4 mr-2" /> New Project
       </Button>
     </div>

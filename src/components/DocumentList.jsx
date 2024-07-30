@@ -9,6 +9,15 @@ const DocumentList = () => {
     { id: 3, title: "User Guide", lastUpdated: "2023-04-05" },
   ]);
 
+  const addNewDocument = () => {
+    const newDocument = {
+      id: documents.length + 1,
+      title: `New Document ${documents.length + 1}`,
+      lastUpdated: new Date().toISOString().split('T')[0],
+    };
+    setDocuments([...documents, newDocument]);
+  };
+
   return (
     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
       <h2 className="text-xl font-semibold mb-4">Documents</h2>
@@ -30,7 +39,7 @@ const DocumentList = () => {
           </li>
         ))}
       </ul>
-      <Button className="w-full mt-4">
+      <Button className="w-full mt-4" onClick={addNewDocument}>
         <Plus className="h-4 w-4 mr-2" /> New Document
       </Button>
     </div>

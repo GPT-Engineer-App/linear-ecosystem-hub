@@ -9,6 +9,16 @@ const IssueList = () => {
     { id: 3, title: "Update documentation", status: "Closed", priority: "Low" },
   ]);
 
+  const addNewIssue = () => {
+    const newIssue = {
+      id: issues.length + 1,
+      title: `New Issue ${issues.length + 1}`,
+      status: "Open",
+      priority: "Medium",
+    };
+    setIssues([...issues, newIssue]);
+  };
+
   return (
     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
       <h2 className="text-xl font-semibold mb-4">Issues</h2>
@@ -29,7 +39,7 @@ const IssueList = () => {
           </li>
         ))}
       </ul>
-      <Button className="w-full mt-4">
+      <Button className="w-full mt-4" onClick={addNewIssue}>
         <Plus className="h-4 w-4 mr-2" /> New Issue
       </Button>
     </div>
