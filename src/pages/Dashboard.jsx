@@ -1,7 +1,8 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search, Plus } from "lucide-react";
+import { Search, Plus, Home } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import TeamList from "../components/TeamList";
 import ProjectList from "../components/ProjectList";
 import IssueList from "../components/IssueList";
@@ -12,6 +13,7 @@ import NewIssueModal from "../components/NewIssueModal";
 import { toast } from "sonner";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [activeView, setActiveView] = useState("projects");
   const [selectedIssueId, setSelectedIssueId] = useState(null);
   const [issues, setIssues] = useState([
@@ -56,7 +58,12 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
       <header className="bg-white dark:bg-gray-800 shadow">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
+          <div className="flex items-center space-x-4">
+            <Button variant="ghost" onClick={() => navigate("/")} className="p-2">
+              <Home className="h-5 w-5" />
+            </Button>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
+          </div>
           <div className="flex space-x-4">
             <Input
               type="text"
