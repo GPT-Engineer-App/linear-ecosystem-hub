@@ -1,11 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 
-const IssueList = ({ groupedIssues, onSelectIssue }) => {
-  const addNewIssue = () => {
-    // This function should be implemented in the parent component
-    console.log("Add new issue");
-  };
+const IssueList = ({ groupedIssues, onSelectIssue, onAddNewIssue }) => {
 
   return (
     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
@@ -30,7 +26,7 @@ const IssueList = ({ groupedIssues, onSelectIssue }) => {
           </ul>
         </div>
       ))}
-      <Button className="w-full mt-4" onClick={addNewIssue}>
+      <Button className="w-full mt-4" onClick={onAddNewIssue}>
         <Plus className="h-4 w-4 mr-2" /> New Issue
       </Button>
     </div>

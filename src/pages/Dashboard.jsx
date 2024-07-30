@@ -20,6 +20,16 @@ const Dashboard = () => {
     { id: 5, title: "Optimize database queries", status: "In Progress", priority: "High" },
   ]);
 
+  const addNewIssue = () => {
+    const newIssue = {
+      id: issues.length + 1,
+      title: `New Issue ${issues.length + 1}`,
+      status: "Open",
+      priority: "Medium",
+    };
+    setIssues([...issues, newIssue]);
+  };
+
   const groupedIssues = useMemo(() => {
     return issues.reduce((acc, issue) => {
       if (!acc[issue.status]) {
@@ -101,7 +111,7 @@ const Dashboard = () => {
           </div>
           <div className="col-span-3">
             {activeView === "projects" && <ProjectList />}
-            {activeView === "issues" && <IssueList groupedIssues={groupedIssues} onSelectIssue={handleSelectIssue} />}
+            {activeView === "issues" && <IssueList groupedIssues={groupedIssues} onSelectIssue={handleSelectIssue} onAddNewIssue={addNewIssue} />}
             {activeView === "issue" && <IssueView issueId={selectedIssueId} onUpdate={handleUpdateIssue} />}
             {activeView === "documents" && <DocumentList />}
             {activeView === "milestones" && <MilestoneView />}
