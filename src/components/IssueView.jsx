@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { toast } from "sonner";
 
-const IssueView = ({ issueId }) => {
+const IssueView = ({ issueId, onUpdate }) => {
   const [issue, setIssue] = useState({
     id: issueId,
     title: "Fix login bug",
@@ -22,8 +23,14 @@ const IssueView = ({ issueId }) => {
     setIssue({ ...issue, [name]: value });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onUpdate(issue);
+    toast.success("Issue updated successfully");
+  };
+
   return (
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+    <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
       <h2 className="text-2xl font-semibold mb-4">Issue #{issue.id}</h2>
       <div className="space-y-4">
         <div>
@@ -34,6 +41,7 @@ const IssueView = ({ issueId }) => {
             value={issue.title}
             onChange={handleInputChange}
             className="w-full"
+            required
           />
         </div>
         <div>
@@ -45,6 +53,7 @@ const IssueView = ({ issueId }) => {
             onChange={handleInputChange}
             className="w-full"
             rows={4}
+            required
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
@@ -83,11 +92,12 @@ const IssueView = ({ issueId }) => {
             value={issue.assignee}
             onChange={handleInputChange}
             className="w-full"
+            required
           />
         </div>
-        <Button className="w-full">Save Changes</Button>
+        <Button type="submit" className="w-full">Save Changes</Button>
       </div>
-    </div>
+    </form>
   );
 };
 

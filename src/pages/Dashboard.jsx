@@ -12,10 +12,20 @@ import MilestoneView from "../components/MilestoneView";
 const Dashboard = () => {
   const [activeView, setActiveView] = useState("projects");
   const [selectedIssueId, setSelectedIssueId] = useState(null);
+  const [issues, setIssues] = useState([
+    { id: 1, title: "Fix login bug", status: "Open", priority: "High" },
+    { id: 2, title: "Implement search feature", status: "In Progress", priority: "Medium" },
+    { id: 3, title: "Update documentation", status: "Closed", priority: "Low" },
+  ]);
 
   const handleSelectIssue = (issueId) => {
     setSelectedIssueId(issueId);
     setActiveView("issue");
+  };
+
+  const handleUpdateIssue = (updatedIssue) => {
+    setIssues(issues.map(issue => issue.id === updatedIssue.id ? updatedIssue : issue));
+    setActiveView("issues");
   };
 
   return (
@@ -79,8 +89,8 @@ const Dashboard = () => {
           </div>
           <div className="col-span-3">
             {activeView === "projects" && <ProjectList />}
-            {activeView === "issues" && <IssueList onSelectIssue={handleSelectIssue} />}
-            {activeView === "issue" && <IssueView issueId={selectedIssueId} />}
+            {activeView === "issues" && <IssueList issues={issues} onSelectIssue={handleSelectIssue} />}
+            {activeView === "issue" && <IssueView issueId={selectedIssueId} onUpdate={handleUpdateIssue} />}
             {activeView === "documents" && <DocumentList />}
             {activeView === "milestones" && <MilestoneView />}
           </div>

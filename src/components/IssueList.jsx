@@ -1,22 +1,10 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 
-const IssueList = ({ onSelectIssue }) => {
-  const [issues, setIssues] = useState([
-    { id: 1, title: "Fix login bug", status: "Open", priority: "High" },
-    { id: 2, title: "Implement search feature", status: "In Progress", priority: "Medium" },
-    { id: 3, title: "Update documentation", status: "Closed", priority: "Low" },
-  ]);
-
+const IssueList = ({ issues, onSelectIssue }) => {
   const addNewIssue = () => {
-    const newIssue = {
-      id: issues.length + 1,
-      title: `New Issue ${issues.length + 1}`,
-      status: "Open",
-      priority: "Medium",
-    };
-    setIssues([...issues, newIssue]);
+    // This function should be implemented in the parent component
+    console.log("Add new issue");
   };
 
   return (
