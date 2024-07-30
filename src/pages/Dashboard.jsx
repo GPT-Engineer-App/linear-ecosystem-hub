@@ -1,13 +1,14 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Plus, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import TeamList from "../components/TeamList";
 import ProjectList from "../components/ProjectList";
 import IssueList from "../components/IssueList";
 import IssueView from "../components/IssueView";
 import DocumentList from "../components/DocumentList";
 import MilestoneView from "../components/MilestoneView";
+import NewIssueModal from "../components/NewIssueModal";
 
 const Dashboard = () => {
   const [activeView, setActiveView] = useState("projects");
@@ -20,14 +21,12 @@ const Dashboard = () => {
     { id: 5, title: "Optimize database queries", status: "In Progress", priority: "High" },
   ]);
 
-  const addNewIssue = () => {
-    const newIssue = {
+  const addNewIssue = (newIssue) => {
+    const issueWithId = {
+      ...newIssue,
       id: issues.length + 1,
-      title: `New Issue ${issues.length + 1}`,
-      status: "Open",
-      priority: "Medium",
     };
-    setIssues([...issues, newIssue]);
+    setIssues([...issues, issueWithId]);
   };
 
   const groupedIssues = useMemo(() => {
@@ -111,7 +110,14 @@ const Dashboard = () => {
           </div>
           <div className="col-span-3">
             {activeView === "projects" && <ProjectList />}
-            {activeView === "issues" && <IssueList groupedIssues={groupedIssues} onSelectIssue={handleSelectIssue} onAddNewIssue={addNewIssue} />}
+            {activeView === "issues" && (
+              <>
+                <div className="mb-4">
+                  <NewIssueModal onAddNewIssue={addNewIssue} />
+                </div>
+                <IssueList groupedIssues={groupedIssues} onSelectIssue={handleSelectIssue} />
+              </>
+            )}
             {activeView === "issue" && <IssueView issueId={selectedIssueId} onUpdate={handleUpdateIssue} />}
             {activeView === "documents" && <DocumentList />}
             {activeView === "milestones" && <MilestoneView />}
