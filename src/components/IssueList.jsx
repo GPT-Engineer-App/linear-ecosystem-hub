@@ -26,9 +26,6 @@ const IssueList = ({ groupedIssues, onSelectIssue, onAddNewIssue }) => {
           </ul>
         </div>
       ))}
-      <Button className="w-full mt-4" onClick={onAddNewIssue}>
-        <Plus className="h-4 w-4 mr-2" /> New Issue
-      </Button>
     </div>
   );
 };
