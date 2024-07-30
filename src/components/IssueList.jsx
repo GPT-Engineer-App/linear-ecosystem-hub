@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 
-const IssueList = () => {
+const IssueList = ({ onSelectIssue }) => {
   const [issues, setIssues] = useState([
     { id: 1, title: "Fix login bug", status: "Open", priority: "High" },
     { id: 2, title: "Implement search feature", status: "In Progress", priority: "Medium" },
@@ -33,7 +33,7 @@ const IssueList = () => {
                 <span className="text-gray-500 dark:text-gray-400">{issue.priority}</span>
               </div>
             </div>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" onClick={() => onSelectIssue(issue.id)}>
               View
             </Button>
           </li>

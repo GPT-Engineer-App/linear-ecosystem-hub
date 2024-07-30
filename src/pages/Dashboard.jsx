@@ -5,11 +5,18 @@ import { Plus, Search } from "lucide-react";
 import TeamList from "../components/TeamList";
 import ProjectList from "../components/ProjectList";
 import IssueList from "../components/IssueList";
+import IssueView from "../components/IssueView";
 import DocumentList from "../components/DocumentList";
 import MilestoneView from "../components/MilestoneView";
 
 const Dashboard = () => {
   const [activeView, setActiveView] = useState("projects");
+  const [selectedIssueId, setSelectedIssueId] = useState(null);
+
+  const handleSelectIssue = (issueId) => {
+    setSelectedIssueId(issueId);
+    setActiveView("issue");
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -42,7 +49,7 @@ const Dashboard = () => {
             </li>
             <li>
               <Button
-                variant={activeView === "issues" ? "default" : "ghost"}
+                variant={activeView === "issues" || activeView === "issue" ? "default" : "ghost"}
                 onClick={() => setActiveView("issues")}
               >
                 Issues
@@ -72,7 +79,8 @@ const Dashboard = () => {
           </div>
           <div className="col-span-3">
             {activeView === "projects" && <ProjectList />}
-            {activeView === "issues" && <IssueList />}
+            {activeView === "issues" && <IssueList onSelectIssue={handleSelectIssue} />}
+            {activeView === "issue" && <IssueView issueId={selectedIssueId} />}
             {activeView === "documents" && <DocumentList />}
             {activeView === "milestones" && <MilestoneView />}
           </div>
