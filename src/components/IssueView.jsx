@@ -13,7 +13,7 @@ const IssueView = ({ issueId, onUpdate, projects }) => {
     status: "Open",
     priority: "High",
     assignee: "John Doe",
-    projectId: projects[0].id,
+    projectId: projects && projects.length > 0 ? projects[0].id : null,
   });
 
   const handleInputChange = (e) => {

@@ -141,7 +141,7 @@ const Dashboard = () => {
                 />
               </>
             )}
-            {activeView === "issue" && <IssueView issueId={selectedIssueId} onUpdate={handleUpdateIssue} />}
+            {activeView === "issue" && <IssueView issueId={selectedIssueId} onUpdate={handleUpdateIssue} projects={projects} />}
             {activeView === "documents" && <DocumentList />}
             {activeView === "milestones" && <MilestoneView />}
           </div>
