@@ -115,11 +115,15 @@ const Dashboard = () => {
             {activeView === "projects" && <ProjectList />}
             {activeView === "issues" && (
               <>
-                <div className="mb-4 flex justify-between items-center">
-                  <h2 className="text-2xl font-bold">Issues</h2>
+                <h2 className="text-2xl font-bold mb-4">Issues</h2>
+                <div className="flex justify-between items-center mb-4">
                   <NewIssueModal onAddNewIssue={addNewIssue} />
                 </div>
-                <IssueList groupedIssues={groupedIssues} onSelectIssue={handleSelectIssue} />
+                <IssueList
+                  groupedIssues={groupedIssues}
+                  onSelectIssue={handleSelectIssue}
+                  onAddNewIssue={addNewIssue}
+                />
               </>
             )}
             {activeView === "issue" && <IssueView issueId={selectedIssueId} onUpdate={handleUpdateIssue} />}
