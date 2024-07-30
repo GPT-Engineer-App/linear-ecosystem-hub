@@ -145,46 +145,20 @@ const Dashboard = () => {
             </li>
           </ul>
         </nav>
-        <div className="grid grid-cols-4 gap-8">
-          <div className="col-span-1">
-            <TeamList />
-          </div>
-          <div className="col-span-3">
-            {activeView === "projects" && (
-              <ProjectList
-                projects={projects}
-                onSelectProject={handleSelectProject}
-                onAddNewProject={addNewProject}
-              />
-            )}
-            {activeView === "project" && (
-              <ProjectView
-                projectId={selectedProjectId}
-                onUpdate={handleUpdateProject}
-                projects={projects}
-                issues={issues}
-                onSelectIssue={handleSelectIssue}
-              />
-            )}
-            {activeView === "issues" && (
-              <>
-                <h2 className="text-2xl font-bold mb-4">Issues</h2>
-                <div className="flex justify-between items-center mb-4">
-                  <NewIssueModal onAddNewIssue={addNewIssue} projects={projects} />
-                </div>
-                <IssueList
-                  groupedIssues={groupedIssues}
-                  onSelectIssue={handleSelectIssue}
-                  onAddNewIssue={addNewIssue}
-                  projects={projects}
-                />
-              </>
-            )}
-            {activeView === "issue" && <IssueView issueId={selectedIssueId} onUpdate={handleUpdateIssue} projects={projects} />}
-            {activeView === "documents" && <DocumentList />}
-            {activeView === "milestones" && <MilestoneView />}
-          </div>
-        </div>
+        <TeamList
+          activeView={activeView}
+          projects={projects}
+          issues={issues}
+          groupedIssues={groupedIssues}
+          selectedProjectId={selectedProjectId}
+          selectedIssueId={selectedIssueId}
+          onSelectProject={handleSelectProject}
+          onAddNewProject={addNewProject}
+          onUpdateProject={handleUpdateProject}
+          onSelectIssue={handleSelectIssue}
+          onAddNewIssue={addNewIssue}
+          onUpdateIssue={handleUpdateIssue}
+        />
       </main>
     </div>
   );
