@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 
-const MilestoneView = () => {
+const MilestoneView = ({ projectId }) => {
   const [milestones, setMilestones] = useState([
-    { id: 1, title: "Alpha Release", startDate: "2023-05-01", endDate: "2023-05-15" },
-    { id: 2, title: "Beta Testing", startDate: "2023-05-16", endDate: "2023-06-15" },
-    { id: 3, title: "Final Release", startDate: "2023-06-16", endDate: "2023-06-30" },
+    { id: 1, title: "Alpha Release", startDate: "2023-05-01", endDate: "2023-05-15", projectId: 1 },
+    { id: 2, title: "Beta Testing", startDate: "2023-05-16", endDate: "2023-06-15", projectId: 1 },
+    { id: 3, title: "Final Release", startDate: "2023-06-16", endDate: "2023-06-30", projectId: 1 },
+    { id: 4, title: "Requirements Gathering", startDate: "2023-07-01", endDate: "2023-07-15", projectId: 2 },
+    { id: 5, title: "Design Phase", startDate: "2023-07-16", endDate: "2023-08-15", projectId: 2 },
   ]);
+
+  const filteredMilestones = useMemo(() => {
+    return milestones.filter(milestone => milestone.projectId === projectId);
+  }, [milestones, projectId]);
 
   const addNewMilestone = () => {
     const lastMilestone = milestones[milestones.length - 1];
@@ -21,15 +27,15 @@ const MilestoneView = () => {
       title: `New Milestone ${milestones.length + 1}`,
       startDate: newStartDate.toISOString().split('T')[0],
       endDate: newEndDate.toISOString().split('T')[0],
+      projectId: projectId,
     };
     setMilestones([...milestones, newMilestone]);
   };
 
   return (
     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
-      <h2 className="text-xl font-semibold mb-4">Milestones</h2>
       <div className="space-y-4">
-        {milestones.map((milestone) => (
+        {filteredMilestones.map((milestone) => (
           <div key={milestone.id} className="flex items-center">
             <div className="w-1/4 text-sm text-gray-500 dark:text-gray-400">
               {milestone.startDate}

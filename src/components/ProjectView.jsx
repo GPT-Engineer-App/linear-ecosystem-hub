@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import IssueList from "./IssueList";
+import MilestoneView from "./MilestoneView";
 
 const ProjectView = ({ projectId, onUpdate, projects, issues, onSelectIssue }) => {
   const [project, setProject] = useState(
@@ -93,6 +94,11 @@ const ProjectView = ({ projectId, onUpdate, projects, issues, onSelectIssue }) =
           onSelectIssue={onSelectIssue}
           projects={projects}
         />
+      </div>
+      
+      <div className="mt-8">
+        <h3 className="text-xl font-semibold mb-4">Project Milestones</h3>
+        <MilestoneView projectId={projectId} />
       </div>
     </div>
   );
