@@ -5,6 +5,7 @@ import { Search, Plus, Home } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import TeamList from "../components/TeamList";
 import ProjectList from "../components/ProjectList";
+import ProjectView from "../components/ProjectView";
 import IssueList from "../components/IssueList";
 import IssueView from "../components/IssueView";
 import DocumentList from "../components/DocumentList";
@@ -16,6 +17,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [activeView, setActiveView] = useState("projects");
   const [selectedIssueId, setSelectedIssueId] = useState(null);
+  const [selectedProjectId, setSelectedProjectId] = useState(null);
   const [projects, setProjects] = useState([
     { id: 1, name: "Website Redesign", status: "In Progress" },
     { id: 2, name: "Mobile App Development", status: "Planning" },
@@ -34,11 +36,23 @@ const Dashboard = () => {
     const issueWithId = {
       ...newIssue,
       id: issues.length + 1,
-      projectId: newIssue.projectId || projects[0].id, // Default to first project if not specified
+      projectId: newIssue.projectId || projects[0].id,
     };
     setIssues([...issues, issueWithId]);
     toast.success("New issue created successfully");
     setActiveView("issues");
+  };
+
+  const addNewProject = () => {
+    const newProject = {
+      id: projects.length + 1,
+      name: `New Project ${projects.length + 1}`,
+      status: "Planning",
+      description: "",
+    };
+    setProjects([...projects, newProject]);
+    setSelectedProjectId(newProject.id);
+    setActiveView("project");
   };
 
   const groupedIssues = useMemo(() => {
@@ -56,9 +70,19 @@ const Dashboard = () => {
     setActiveView("issue");
   };
 
+  const handleSelectProject = (projectId) => {
+    setSelectedProjectId(projectId);
+    setActiveView("project");
+  };
+
   const handleUpdateIssue = (updatedIssue) => {
     setIssues(issues.map(issue => issue.id === updatedIssue.id ? updatedIssue : issue));
     setActiveView("issues");
+  };
+
+  const handleUpdateProject = (updatedProject) => {
+    setProjects(projects.map(project => project.id === updatedProject.id ? updatedProject : project));
+    setActiveView("projects");
   };
 
   return (
@@ -89,7 +113,7 @@ const Dashboard = () => {
           <ul className="flex space-x-4">
             <li>
               <Button
-                variant={activeView === "projects" ? "default" : "ghost"}
+                variant={activeView === "projects" || activeView === "project" ? "default" : "ghost"}
                 onClick={() => setActiveView("projects")}
               >
                 Projects
@@ -126,7 +150,20 @@ const Dashboard = () => {
             <TeamList />
           </div>
           <div className="col-span-3">
-            {activeView === "projects" && <ProjectList projects={projects} setProjects={setProjects} />}
+            {activeView === "projects" && (
+              <ProjectList
+                projects={projects}
+                onSelectProject={handleSelectProject}
+                onAddNewProject={addNewProject}
+              />
+            )}
+            {activeView === "project" && (
+              <ProjectView
+                projectId={selectedProjectId}
+                onUpdate={handleUpdateProject}
+                projects={projects}
+              />
+            )}
             {activeView === "issues" && (
               <>
                 <h2 className="text-2xl font-bold mb-4">Issues</h2>
