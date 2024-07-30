@@ -15,18 +15,18 @@ const Index = () => {
         <h1 className="text-2xl font-bold">LinearClone</h1>
         <nav>
           <ul className="flex space-x-6">
-            <li><a href="#features" className="hover:text-gray-300">Features</a></li>
-            <li><a href="#method" className="hover:text-gray-300">Method</a></li>
-            <li><a href="#customers" className="hover:text-gray-300">Customers</a></li>
-            <li><a href="#changelog" className="hover:text-gray-300">Changelog</a></li>
-            <li><a href="#pricing" className="hover:text-gray-300">Pricing</a></li>
-            <li><a href="#company" className="hover:text-gray-300">Company</a></li>
+            <li><a href="#features" className="text-white hover:text-gray-300">Features</a></li>
+            <li><a href="#method" className="text-white hover:text-gray-300">Method</a></li>
+            <li><a href="#customers" className="text-white hover:text-gray-300">Customers</a></li>
+            <li><a href="#changelog" className="text-white hover:text-gray-300">Changelog</a></li>
+            <li><a href="#pricing" className="text-white hover:text-gray-300">Pricing</a></li>
+            <li><a href="#company" className="text-white hover:text-gray-300">Company</a></li>
           </ul>
         </nav>
         <div className="flex space-x-4">
-          <a href="#contact" className="hover:text-gray-300">Contact</a>
-          <a href="#docs" className="hover:text-gray-300">Docs</a>
-          <Button variant="outline" onClick={handleGetStarted}>
+          <a href="#contact" className="text-white hover:text-gray-300">Contact</a>
+          <a href="#docs" className="text-white hover:text-gray-300">Docs</a>
+          <Button variant="outline" className="text-white border-white hover:bg-white hover:text-black" onClick={handleGetStarted}>
             Open app
           </Button>
         </div>
