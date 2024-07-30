@@ -1,7 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap, Users, Layers, Calendar } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    navigate("/dashboard");
+  };
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
       <header className="container mx-auto py-8">
@@ -11,7 +17,7 @@ const Index = () => {
         <section className="text-center mb-16">
           <h2 className="text-5xl font-bold mb-6">The issue tracking tool you'll enjoy using</h2>
           <p className="text-xl mb-8">Streamline your projects, supercharge your workflow</p>
-          <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
+          <Button size="lg" className="bg-blue-600 hover:bg-blue-700" onClick={handleGetStarted}>
             Get Started <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </section>
