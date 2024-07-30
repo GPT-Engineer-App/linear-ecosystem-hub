@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 
-const IssueList = ({ groupedIssues, onSelectIssue, onAddNewIssue }) => {
+const IssueList = ({ groupedIssues, onSelectIssue }) => {
 
   return (
     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
