@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Zap, Users, Layers, Calendar } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Index = () => {
@@ -8,52 +8,51 @@ const Index = () => {
   const handleGetStarted = () => {
     navigate("/dashboard");
   };
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
-      <header className="container mx-auto py-8">
-        <h1 className="text-4xl font-bold">LinearClone</h1>
-      </header>
-      <main className="container mx-auto px-4 py-16">
-        <section className="text-center mb-16">
-          <h2 className="text-5xl font-bold mb-6">The issue tracking tool you'll enjoy using</h2>
-          <p className="text-xl mb-8">Streamline your projects, supercharge your workflow</p>
-          <Button size="lg" className="bg-blue-600 hover:bg-blue-700" onClick={handleGetStarted}>
-            Get Started <ArrowRight className="ml-2 h-5 w-5" />
+    <div className="min-h-screen bg-black text-white">
+      <header className="container mx-auto py-6 px-4 flex justify-between items-center">
+        <h1 className="text-2xl font-bold">LinearClone</h1>
+        <nav>
+          <ul className="flex space-x-6">
+            <li><a href="#features" className="hover:text-gray-300">Features</a></li>
+            <li><a href="#method" className="hover:text-gray-300">Method</a></li>
+            <li><a href="#customers" className="hover:text-gray-300">Customers</a></li>
+            <li><a href="#changelog" className="hover:text-gray-300">Changelog</a></li>
+            <li><a href="#pricing" className="hover:text-gray-300">Pricing</a></li>
+            <li><a href="#company" className="hover:text-gray-300">Company</a></li>
+          </ul>
+        </nav>
+        <div className="flex space-x-4">
+          <a href="#contact" className="hover:text-gray-300">Contact</a>
+          <a href="#docs" className="hover:text-gray-300">Docs</a>
+          <Button variant="outline" onClick={handleGetStarted}>
+            Open app
           </Button>
+        </div>
+      </header>
+      <main className="container mx-auto px-4 py-20">
+        <section className="text-center mb-16 max-w-4xl mx-auto">
+          <h2 className="text-6xl font-bold mb-6">LinearClone is a purpose-built tool for planning and building products</h2>
+          <p className="text-xl mb-8 text-gray-400">
+            Meet the system for modern software development.<br />
+            Streamline issues, projects, and product roadmaps.
+          </p>
+          <div className="flex justify-center space-x-4">
+            <Button size="lg" className="bg-white text-black hover:bg-gray-200" onClick={handleGetStarted}>
+              Start building
+            </Button>
+            <Button variant="link" className="text-gray-400 hover:text-white">
+              Introducing Initiatives <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </div>
         </section>
-        <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <FeatureCard
-            icon={<Zap className="h-8 w-8 text-yellow-400" />}
-            title="Lightning Fast"
-            description="Experience unparalleled speed and performance"
-          />
-          <FeatureCard
-            icon={<Users className="h-8 w-8 text-green-400" />}
-            title="Team Collaboration"
-            description="Work seamlessly with your team members"
-          />
-          <FeatureCard
-            icon={<Layers className="h-8 w-8 text-purple-400" />}
-            title="Project Management"
-            description="Organize and track your projects effortlessly"
-          />
-          <FeatureCard
-            icon={<Calendar className="h-8 w-8 text-red-400" />}
-            title="Milestone Tracking"
-            description="Visualize project timelines with Gantt-like views"
-          />
+        <section className="mt-20">
+          <img src="/placeholder.svg" alt="LinearClone Interface" className="w-full h-[600px] object-cover rounded-lg" />
         </section>
       </main>
     </div>
   );
 };
-
-const FeatureCard = ({ icon, title, description }) => (
-  <div className="bg-gray-800 p-6 rounded-lg">
-    <div className="mb-4">{icon}</div>
-    <h3 className="text-xl font-semibold mb-2">{title}</h3>
-    <p className="text-gray-300">{description}</p>
-  </div>
-);
 
 export default Index;
