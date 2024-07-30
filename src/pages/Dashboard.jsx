@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Search } from "lucide-react";
@@ -16,7 +16,19 @@ const Dashboard = () => {
     { id: 1, title: "Fix login bug", status: "Open", priority: "High" },
     { id: 2, title: "Implement search feature", status: "In Progress", priority: "Medium" },
     { id: 3, title: "Update documentation", status: "Closed", priority: "Low" },
+    { id: 4, title: "Refactor API endpoints", status: "Open", priority: "Medium" },
+    { id: 5, title: "Optimize database queries", status: "In Progress", priority: "High" },
   ]);
+
+  const groupedIssues = useMemo(() => {
+    return issues.reduce((acc, issue) => {
+      if (!acc[issue.status]) {
+        acc[issue.status] = [];
+      }
+      acc[issue.status].push(issue);
+      return acc;
+    }, {});
+  }, [issues]);
 
   const handleSelectIssue = (issueId) => {
     setSelectedIssueId(issueId);
@@ -89,7 +101,7 @@ const Dashboard = () => {
           </div>
           <div className="col-span-3">
             {activeView === "projects" && <ProjectList />}
-            {activeView === "issues" && <IssueList issues={issues} onSelectIssue={handleSelectIssue} />}
+            {activeView === "issues" && <IssueList groupedIssues={groupedIssues} onSelectIssue={handleSelectIssue} />}
             {activeView === "issue" && <IssueView issueId={selectedIssueId} onUpdate={handleUpdateIssue} />}
             {activeView === "documents" && <DocumentList />}
             {activeView === "milestones" && <MilestoneView />}
