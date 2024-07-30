@@ -19,9 +19,10 @@ const Dashboard = () => {
   const [selectedIssueId, setSelectedIssueId] = useState(null);
   const [selectedProjectId, setSelectedProjectId] = useState(null);
   const [projects, setProjects] = useState([
-    { id: 1, name: "Website Redesign", status: "In Progress" },
-    { id: 2, name: "Mobile App Development", status: "Planning" },
-    { id: 3, name: "Data Migration", status: "Completed" },
+    { id: 1, name: "Website Redesign", status: "In Progress", teamId: 1 },
+    { id: 2, name: "Mobile App Development", status: "Planning", teamId: 1 },
+    { id: 3, name: "Data Migration", status: "Completed", teamId: 2 },
+    { id: 4, name: "Marketing Campaign", status: "In Progress", teamId: 3 },
   ]);
 
   const [issues, setIssues] = useState([
@@ -30,6 +31,8 @@ const Dashboard = () => {
     { id: 3, title: "Update documentation", status: "Closed", priority: "Low", projectId: 2 },
     { id: 4, title: "Refactor API endpoints", status: "Open", priority: "Medium", projectId: 2 },
     { id: 5, title: "Optimize database queries", status: "In Progress", priority: "High", projectId: 3 },
+    { id: 6, title: "Design new logo", status: "Open", priority: "Medium", projectId: 3 },
+    { id: 7, title: "Create social media content", status: "In Progress", priority: "High", projectId: 4 },
   ].filter(issue => issue && issue.title !== undefined));
 
   const addNewIssue = (newIssue) => {

@@ -13,14 +13,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-const NewIssueModal = ({ onAddNewIssue, projects }) => {
+const NewIssueModal = ({ onAddNewIssue, projects, selectedTeam }) => {
   const [open, setOpen] = useState(false);
   const [newIssue, setNewIssue] = useState({
     title: "",
     description: "",
     status: "Open",
     priority: "Medium",
-    projectId: projects[0].id,
+    projectId: projects.length > 0 ? projects[0].id : null,
   });
 
   const handleInputChange = (e) => {

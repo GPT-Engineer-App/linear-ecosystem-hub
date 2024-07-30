@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 
-const ProjectList = ({ projects, onSelectProject, onAddNewProject }) => {
+const ProjectList = ({ projects, onSelectProject, onAddNewProject, selectedTeam }) => {
+  const handleAddNewProject = () => {
+    onAddNewProject(selectedTeam);
+  };
+
   return (
     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
       <h2 className="text-xl font-semibold mb-4">Projects</h2>
@@ -18,7 +22,7 @@ const ProjectList = ({ projects, onSelectProject, onAddNewProject }) => {
           </li>
         ))}
       </ul>
-      <Button className="w-full mt-4" onClick={onAddNewProject}>
+      <Button className="w-full mt-4" onClick={handleAddNewProject}>
         <Plus className="h-4 w-4 mr-2" /> New Project
       </Button>
     </div>

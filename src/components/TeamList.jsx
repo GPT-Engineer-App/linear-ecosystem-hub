@@ -34,6 +34,20 @@ const TeamList = ({
     setSelectedTeam(teamId);
   };
 
+  const filteredProjects = projects.filter(project => project.teamId === selectedTeam);
+  const filteredIssues = issues.filter(issue => {
+    const project = projects.find(p => p.id === issue.projectId);
+    return project && project.teamId === selectedTeam;
+  });
+
+  const filteredGroupedIssues = Object.entries(groupedIssues).reduce((acc, [status, statusIssues]) => {
+    acc[status] = statusIssues.filter(issue => {
+      const project = projects.find(p => p.id === issue.projectId);
+      return project && project.teamId === selectedTeam;
+    });
+    return acc;
+  }, {});
+
   return (
     <div className="grid grid-cols-4 gap-8">
       <div className="col-span-1 bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
@@ -72,37 +86,39 @@ const TeamList = ({
         <div className="col-span-3">
           {activeView === "projects" && (
             <ProjectList
-              projects={projects}
+              projects={filteredProjects}
               onSelectProject={onSelectProject}
               onAddNewProject={onAddNewProject}
+              selectedTeam={selectedTeam}
             />
           )}
           {activeView === "project" && (
             <ProjectView
               projectId={selectedProjectId}
               onUpdate={onUpdateProject}
-              projects={projects}
-              issues={issues}
+              projects={filteredProjects}
+              issues={filteredIssues}
               onSelectIssue={onSelectIssue}
+              selectedTeam={selectedTeam}
             />
           )}
           {activeView === "issues" && (
             <>
               <h2 className="text-2xl font-bold mb-4">Issues</h2>
               <div className="flex justify-between items-center mb-4">
-                <NewIssueModal onAddNewIssue={onAddNewIssue} projects={projects} />
+                <NewIssueModal onAddNewIssue={onAddNewIssue} projects={filteredProjects} selectedTeam={selectedTeam} />
               </div>
               <IssueList
-                groupedIssues={groupedIssues}
+                groupedIssues={filteredGroupedIssues}
                 onSelectIssue={onSelectIssue}
                 onAddNewIssue={onAddNewIssue}
-                projects={projects}
+                projects={filteredProjects}
               />
             </>
           )}
-          {activeView === "issue" && <IssueView issueId={selectedIssueId} onUpdate={onUpdateIssue} projects={projects} />}
-          {activeView === "documents" && <DocumentList />}
-          {activeView === "milestones" && <MilestoneView />}
+          {activeView === "issue" && <IssueView issueId={selectedIssueId} onUpdate={onUpdateIssue} projects={filteredProjects} selectedTeam={selectedTeam} />}
+          {activeView === "documents" && <DocumentList selectedTeam={selectedTeam} />}
+          {activeView === "milestones" && <MilestoneView selectedTeam={selectedTeam} />}
         </div>
       )}
     </div>
