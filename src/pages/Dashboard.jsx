@@ -20,7 +20,7 @@ const Dashboard = () => {
     { id: 3, title: "Update documentation", status: "Closed", priority: "Low" },
     { id: 4, title: "Refactor API endpoints", status: "Open", priority: "Medium" },
     { id: 5, title: "Optimize database queries", status: "In Progress", priority: "High" },
-  ]);
+  ].filter(issue => issue && issue.title !== undefined));
 
   const addNewIssue = (newIssue) => {
     const issueWithId = {

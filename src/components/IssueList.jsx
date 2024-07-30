@@ -10,7 +10,7 @@ const IssueList = ({ groupedIssues, onSelectIssue, onAddNewIssue }) => {
         <div key={status} className="mb-6">
           <h3 className="text-lg font-medium mb-2">{status}</h3>
           <ul className="space-y-4">
-            {issues.map((issue) => (
+            {issues.filter(issue => issue && issue.title !== undefined).map((issue) => (
               <li key={issue.id} className="flex items-center justify-between">
                 <div>
                   <h4 className="font-medium">{issue.title}</h4>
